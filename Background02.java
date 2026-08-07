@@ -62,7 +62,7 @@ public class Background02 extends JPanel {
         javaSwing.midpointEllipseFill(g2, 300, 460, 225, 55);
 
         g2.setColor(new Color(0xee9b78));
-        javaSwing.midpointEllipseFill(g2, 300, 455, 225, 55);
+        javaSwing.midpointEllipseFill(g2, 300, 455, 225, 55); //จุดที่ ผญ นั่ง
 
         g2.setColor(new Color(0xffd9c1));
         javaSwing.midpointEllipseFill(g2, 300, 455, 180, 40);
@@ -95,7 +95,7 @@ public class Background02 extends JPanel {
 
         // 5) ดวงจันทร์ && ดาว
         g2.setColor(new Color(0xd9d97a));
-        javaSwing.midpointEllipseFill(g2, right - 30, bodyTop + 40, 14, 14);
+        javaSwing.midpointEllipseFill(g2, right - 30, bodyTop + 40, 20, 20);
 
     }
     
