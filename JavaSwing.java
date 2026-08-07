@@ -51,9 +51,8 @@ public class JavaSwing extends JPanel {
 
     }
 
-    public void bezierCurve(Graphics g, int x1, int y1, int x2, int y2, int x3,
-            int y3,
-            int x4, int y4, int width, int height) {
+    public void bezierCurve(Graphics g, int x1, int y1, int x2, int y2, int x3, int y3,
+                                    int x4, int y4, int width, int height) {
         int numPoint = 1000;
         double step = 1.0 / numPoint;
 
@@ -73,7 +72,7 @@ public class JavaSwing extends JPanel {
     }
 
     public void bezierFillDown(Graphics g, int x1, int y1, int x2, int y2, int x3, int y3,
-            int x4, int y4, int width, int baselineY) {
+                                            int x4, int y4, int width, int baselineY) {
         int numPoint = 1000;
         double step = 1.0 / numPoint;
 
@@ -96,7 +95,7 @@ public class JavaSwing extends JPanel {
     }
 
     public void bezierFillUp(Graphics g, int x1, int y1, int x2, int y2, int x3, int y3,
-            int x4, int y4, int width, int topY) {
+                                        int x4, int y4, int width, int topY) {
         int numPoint = 1000;
         double step = 1.0 / numPoint;
 
