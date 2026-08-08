@@ -123,14 +123,14 @@ public class Girl extends JPanel {
 
     }
 
-    public static void main(String[] args) {
-        Girl m = new Girl();
-        JFrame f = new JFrame();
-        f.add(m);
-        f.setTitle("Background");
-        f.setSize(600, 600);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setVisible(true);
-    }
+    // public static void main(String[] args) {
+    //     Girl m = new Girl();
+    //     JFrame f = new JFrame();
+    //     f.add(m);
+    //     f.setTitle("Background");
+    //     f.setSize(600, 600);
+    //     f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //     f.setVisible(true);
+    // }
 
 }

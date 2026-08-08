@@ -41,6 +41,7 @@ public class Background02 extends JPanel {
         // floor grid
         // horizontal
         g2.setColor(new Color(0x695322));
+        javaSwing.bresenhamLine(g2, 0, 555, 600, 555, 1, 1);
         javaSwing.bresenhamLine(g2, 0, 505, 600, 505, 1, 1);
         javaSwing.bresenhamLine(g2, 0, 455, 600, 455, 1, 1);
         javaSwing.bresenhamLine(g2, 0, 410, 600, 410, 1, 1);
