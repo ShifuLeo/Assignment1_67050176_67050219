@@ -22,7 +22,7 @@ public class CatSpirit extends JPanel {
 
     public void drawCat1(BufferedImage img) {
         Graphics2D g2 = img.createGraphics();
-        g2.setColor(Color.BLACK);
+        g2.setColor(new Color(0x8bd2ec));
         //cat head
         javaSwing.bezierCurve(g2, 267, 449, 262, 438, 267, 425, 260, 420, 2, 2);
         javaSwing.bezierCurve(g2, 232, 458, 260, 460, 260, 460, 267, 449, 2, 2);
@@ -51,14 +51,14 @@ public class CatSpirit extends JPanel {
         javaSwing.bezierCurve(g2, 145, 490, 120, 520, 164, 511, 153, 526, 2, 2);
         javaSwing.bezierCurve(g2, 121, 495, 112, 517, 124, 526, 153, 526, 2, 2);
 
-        javaSwing.floodFill(img, 145, 480, new Color(0, 0, 0, 0), new Color(0x8bd2ec));
-        javaSwing.floodFill(img, 125, 500, new Color(0, 0, 0, 0), new Color(0x8bd2ec));
-        javaSwing.floodFill(img, 210, 485, new Color(0, 0, 0, 0), new Color(0x8bd2ec));
+        javaSwing.floodFill(img, 145, 480, new Color(0, 0, 0, 0), new Color(0xb9ecff));
+        javaSwing.floodFill(img, 125, 500, new Color(0, 0, 0, 0), new Color(0xb9ecff));
+        javaSwing.floodFill(img, 210, 485, new Color(0, 0, 0, 0), new Color(0xb9ecff));
     }
 
     public void drawCat2(BufferedImage img){
         Graphics2D g2 = img.createGraphics();
-        g2.setColor(Color.BLACK);
+        g2.setColor(new Color(0x8bd2ec));
 
         //cat head
         javaSwing.bezierCurve(g2, 267, 449, 262, 438, 267, 425, 260, 420, 2, 2);
@@ -88,9 +88,9 @@ public class CatSpirit extends JPanel {
         javaSwing.bezierCurve(g2, 145, 490, 120, 520, 164, 511, 153, 526, 2, 2);
         javaSwing.bezierCurve(g2, 121, 495, 112, 517, 124, 526, 153, 526, 2, 2);
 
-        javaSwing.floodFill(img, 145, 480, new Color(0, 0, 0, 0), new Color(0x8bd2ec));
-        javaSwing.floodFill(img, 125, 500, new Color(0, 0, 0, 0), new Color(0x8bd2ec));
-        javaSwing.floodFill(img, 210, 485, new Color(0, 0, 0, 0), new Color(0x8bd2ec));
+        javaSwing.floodFill(img, 145, 480, new Color(0, 0, 0, 0), new Color(0xb9ecff));
+        javaSwing.floodFill(img, 125, 500, new Color(0, 0, 0, 0), new Color(0xb9ecff));
+        javaSwing.floodFill(img, 210, 485, new Color(0, 0, 0, 0), new Color(0xb9ecff));
 
 
 
@@ -98,7 +98,7 @@ public class CatSpirit extends JPanel {
 
     public void drawCatTail1(BufferedImage img) {
         Graphics2D g2 = img.createGraphics();
-        g2.setColor(Color.BLACK);
+        g2.setColor(new Color(0x8bd2ec));
         //cat tail
         javaSwing.bezierCurve(g2, 120, 380, 104, 396, 91, 425, 120, 430, 2, 2);
         javaSwing.bezierCurve(g2, 120, 380, 102, 356, 73, 423, 101, 444, 2, 2);
@@ -107,7 +107,7 @@ public class CatSpirit extends JPanel {
 
     public void drawCatTail2(BufferedImage img) {
         Graphics2D g2 = img.createGraphics();
-        g2.setColor(Color.BLACK);
+        g2.setColor(new Color(0x8bd2ec));
         //cat tail
         javaSwing.bezierCurve(g2, 91, 372, 110, 373, 91, 420, 120, 430, 2, 2);
         javaSwing.bezierCurve(g2, 91, 372, 85, 367, 86, 429, 101, 444, 2, 2);
@@ -116,7 +116,7 @@ public class CatSpirit extends JPanel {
 
     public void drawLeftLegFront1(BufferedImage img) {
         Graphics2D g2 = img.createGraphics();
-        g2.setColor(Color.BLACK);
+        g2.setColor(new Color(0x8bd2ec));
         //left leg front
         javaSwing.bezierCurve(g2, 201, 485, 216, 486, 250, 522, 267, 505, 2, 2);
         javaSwing.bezierCurve(g2, 232, 458, 220, 488, 256, 489, 267, 505, 2, 2);
@@ -124,7 +124,7 @@ public class CatSpirit extends JPanel {
     }
     public void drawRightLegFront2(BufferedImage img) {
         Graphics2D g2 = img.createGraphics();
-        g2.setColor(Color.BLACK);
+        g2.setColor(new Color(0x8bd2ec));
         //right leg front
         javaSwing.bezierCurve(g2, 201, 485, 208, 487, 280, 512, 263, 486, 2, 2);
         javaSwing.bezierCurve(g2, 232, 458, 220, 480, 240, 486, 263, 486, 2, 2);

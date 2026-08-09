@@ -112,7 +112,7 @@ public class Scene extends JPanel implements Runnable {
             y = 520 + 6* ((ballTime - 0.5) / 0.5); // ลง
         }
 
-        g2.setColor(Color.RED);
+        g2.setColor(new Color(0xd8b3f2));
         js.midpointEllipseFill(g2, 265, (int)y, 15, 15);
     }
 
