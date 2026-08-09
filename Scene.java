@@ -85,9 +85,14 @@ public class Scene extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(bgImage, 0, 0, this);
+        drawStarImage(g2);
         drawGirl(g2);
         drawCat(g2);
         drawBall(g2);
+    }
+
+    private void drawStarImage(Graphics2D g2){
+        background.drawStar(g2, time);
     }
 
     private void drawGirl(Graphics2D g2) {
