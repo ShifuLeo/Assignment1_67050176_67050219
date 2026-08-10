@@ -1,10 +1,9 @@
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Background02 extends JPanel {
     JavaSwing javaSwing = new JavaSwing();
@@ -154,15 +153,18 @@ public class Background02 extends JPanel {
         
         // รูปแมว
         // drawPhotoInFrame(g2, "CatPic01.png", 217, 54, 96, 122);
+        
         drawPhotoInFrame(g2, "catPic01.png", 219, 59, 82, 82);
         drawPhotoInFrame(g2, "catPic02.png", 219, 179, 82, 82);
+        drawPhotoInFrame(g2, "catPic03.png", 70, 115, 90, 110);
 
     }
 
     public void drawPhotoInFrame(Graphics2D g2, String imagePath,
             int frameX, int frameY, int frameW, int frameH) {
         try {
-            BufferedImage img = ImageIO.read(new File(imagePath));
+            BufferedImage img = ImageIO.read(getClass().getResource(imagePath));
+            // BufferedImage img = ImageIO.read(new File(imagePath));
 
             // plot ทีละ pixel
             for (int y = 0; y < frameH; y++) {
@@ -174,7 +176,7 @@ public class Background02 extends JPanel {
             }
 
         } catch (IOException e) {
-            System.err.println("โหลดภาพไม่ได้: " + e.getMessage());
+            System.err.println("Can't load picture: " + e.getMessage());
         }
     }
 
