@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Scene extends JPanel implements Runnable {
+public class Scene0 extends JPanel implements Runnable {
 
     Background02 background = new Background02();
     Girl girl = new Girl();
@@ -28,7 +28,7 @@ public class Scene extends JPanel implements Runnable {
     private static final double TAIL_FLICK_SEC = 0.35; 
     private static final double BALL_CYCLE_SEC = TAIL_FLICK_SEC;
 
-    public Scene() {
+    public Scene0() {
         setPreferredSize(new Dimension(600, 600));
 
         buildBackground();
@@ -122,7 +122,7 @@ public class Scene extends JPanel implements Runnable {
     }
 
     public static void main(String[] args) {
-        Scene scene = new Scene();
+        Scene0 scene = new Scene0();
         JFrame f = new JFrame("My Memory Animation");
         f.add(scene);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

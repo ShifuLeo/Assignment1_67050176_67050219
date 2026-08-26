@@ -91,9 +91,6 @@ public class CatSpirit extends JPanel {
         javaSwing.floodFill(img, 145, 480, new Color(0, 0, 0, 0), new Color(0xb9ecff));
         javaSwing.floodFill(img, 125, 500, new Color(0, 0, 0, 0), new Color(0xb9ecff));
         javaSwing.floodFill(img, 210, 485, new Color(0, 0, 0, 0), new Color(0xb9ecff));
-
-
-
     }
 
     public void drawCatTail1(BufferedImage img) {
@@ -102,7 +99,6 @@ public class CatSpirit extends JPanel {
         //cat tail
         javaSwing.bezierCurve(g2, 120, 380, 104, 396, 91, 425, 120, 430, 2, 2);
         javaSwing.bezierCurve(g2, 120, 380, 102, 356, 73, 423, 101, 444, 2, 2);
-
     }
 
     public void drawCatTail2(BufferedImage img) {

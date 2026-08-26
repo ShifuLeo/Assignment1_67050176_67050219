@@ -1,10 +1,6 @@
-import javax.imageio.ImageIO;
+import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Background01 extends JPanel {
     JavaSwing javaSwing = new JavaSwing();
@@ -12,7 +8,7 @@ public class Background01 extends JPanel {
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         drawSky(g2);
-        drawhill(g2);
+        drawHill(g2);
     }
 
     public void drawSky(Graphics2D g2) {
@@ -20,7 +16,7 @@ public class Background01 extends JPanel {
         g2.clearRect(0, 0, 600, 600);
     }
 
-    public void drawhill(Graphics2D g2){
+    public void drawHill(Graphics2D g2){
         g2.setColor(new Color(0x708e46));
         javaSwing.bezierFillDown(g2, 0, 0, 174, -13, 250, 95, 370, 170, 2, 300);
         

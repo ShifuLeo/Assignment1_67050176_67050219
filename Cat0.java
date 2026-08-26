@@ -5,21 +5,21 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Cat extends JPanel{
+public class Cat0 extends JPanel{
     JavaSwing javaSwing = new JavaSwing();
-    private BufferedImage cachedCat = null;
+    private BufferedImage cachedCat00 = null;
 
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        if (cachedCat == null) {
-            cachedCat = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-            drawCat01(cachedCat);
-            // drawCatBack(cachedCat);
+        if (cachedCat00 == null) {
+            cachedCat00 = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+            drawCat(cachedCat00);
+            // drawCat00Back(cachedCat00);
         }
-        g2.drawImage(cachedCat, 0, 0, this);
+        g2.drawImage(cachedCat00, 0, 0, this);
     }
 
-    public void drawCat01(BufferedImage img){
+    public void drawCat(BufferedImage img){
         Graphics2D g2 = img.createGraphics();
         g2.setColor(Color.BLACK);
 
@@ -67,7 +67,7 @@ public class Cat extends JPanel{
     }
 
     public static void main(String[] args) {
-        Cat m = new Cat();
+        Cat0 m = new Cat0();
         JFrame f = new JFrame();
         f.add(m);
         f.setTitle("Background");
