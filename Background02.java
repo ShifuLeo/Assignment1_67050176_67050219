@@ -155,8 +155,8 @@ public class Background02 extends JPanel {
         // drawPhotoInFrame(g2, "CatPic01.png", 217, 54, 96, 122);
         
         drawPhotoInFrame(g2, "catPic01.png", 219, 59, 82, 82);
-        drawPhotoInFrame(g2, "catPic02.png", 219, 179, 82, 82);
-        drawPhotoInFrame(g2, "catPic03.png", 70, 115, 90, 110);
+        drawPhotoInFrame(g2, "catPic03.png", 219, 179, 82, 82);
+        drawPhotoInFrame(g2, "catPic04.png", 70, 115, 90, 110);
 
     }
 

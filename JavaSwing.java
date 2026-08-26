@@ -257,6 +257,9 @@ public class JavaSwing extends JPanel {
         Graphics2D g2 = m.createGraphics();
         Queue<Point> q = new LinkedList<>();
 
+        int width = m.getWidth();
+        int height = m.getHeight(); 
+
         if (m.getRGB(x, y) == target_color.getRGB()) {
             g2.setColor(replacement_color);
             plot(g2, x, y, 1, 1);
@@ -268,7 +271,7 @@ public class JavaSwing extends JPanel {
             Point p = q.poll();
 
             // south
-            if (p.y < 599 && m.getRGB(p.x, p.y + 1) == target_color.getRGB()) {
+            if (p.y < height - 1 && m.getRGB(p.x, p.y + 1) == target_color.getRGB()) {
                 g2.setColor(replacement_color);
                 plot(g2, p.x, p.y + 1, 1, 1);
                 q.add(new Point(p.x, p.y + 1));
@@ -282,7 +285,7 @@ public class JavaSwing extends JPanel {
             }
 
             // east
-            if (p.x < 599 && m.getRGB(p.x + 1, p.y) == target_color.getRGB()) {
+            if (p.x < width - 1 && m.getRGB(p.x + 1, p.y) == target_color.getRGB()) {
                 g2.setColor(replacement_color);
                 plot(g2, p.x + 1, p.y, 1, 1);
                 q.add(new Point(p.x + 1, p.y));

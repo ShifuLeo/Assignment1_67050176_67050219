@@ -1,3 +1,5 @@
+import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -5,69 +7,105 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Scene1 extends JPanel implements Runnable {
+public class Scene1 extends JPanel  {
 
     Background01 background = new Background01();
-    // Girl girl = new Girl();
     Cat1 cat = new Cat1();
     JavaSwing js = new JavaSwing();
 
     double time = 0;
-    Thread animationThread;
+    // Thread animationThread;
 
-    private BufferedImage bgImage = null;
-
-    private BufferedImage catFrame1 = null; 
+    private BufferedImage skyImage = null;
+    private BufferedImage cloudImage = null;
+    private BufferedImage foregroundImage = null;
+    private BufferedImage catFrame1 = null;
     private BufferedImage catFrame2 = null;
-    
+
     private static final double TAIL_FLICK_SEC = 0.35;
+    private static final double CLOUD_SPEED = 10.0;
+    private static final double FLASH_START_SEC = 4;
 
     public Scene1() {
         setPreferredSize(new Dimension(600, 600));
 
         buildBackground();
-        // buildGirlFrames();
         buildCatFrames();
 
-        animationThread = new Thread(this);
-        animationThread.start();
+        // animationThread = new Thread(this);
+        // animationThread.start();
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            time += 0.033;
-            repaint();
+    // @Override
+    // public void run() {
+    //     while (true) {
+    //         time += 0.033;
+    //         repaint();
 
-            try {
-                Thread.sleep(33);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    //         try {
+    //             Thread.sleep(33);
+    //         } catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
+    // }
+
+    // @Override
+    // public void run() {
+    //     double lastTime = System.currentTimeMillis();
+    //     double currentTime, elapsedTime;
+
+    //     while (true) {
+    //         currentTime = System.currentTimeMillis();
+    //         elapsedTime = currentTime - lastTime;
+    //         lastTime = currentTime;
+    //         time += elapsedTime / 1000.0;
+
+    //         if (time >= 10.0) {
+    //             time = 10.0;
+    //             repaint();
+    //             break;
+    //         }
+
+    //         repaint();
+
+    //         try {
+    //             Thread.sleep(16);
+    //         } catch (InterruptedException e) {
+    //             e.printStackTrace();
+    //         }
+    //     }
+    // }
+
+    public void update(double deltaTime) {
+        time += deltaTime;
+        if (time > 5) {
+            time = 5;
         }
     }
 
+    public boolean isFinished() {
+        return time >= 5;
+    }
+    
     private void buildBackground() {
-        bgImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = bgImage.createGraphics();
-        background.drawSky(g2);
-        background.drawHill(g2);
-        // background.drawCarpet(g2);
-        // background.drawWindow(g2);
-        // background.drawPictureFrame(g2);
+        // ท้องฟ้า
+        skyImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        background.drawSky(skyImage);
+
+        // เมฆ
+        cloudImage = new BufferedImage(1200, 600, BufferedImage.TYPE_INT_ARGB);
+        background.drawCloud(cloudImage);
+
+        // เขา && ดอกไม้
+        foregroundImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        background.drawhill(foregroundImage);
+        background.drawFlowers(foregroundImage);
     }
 
-    // private void buildGirlFrames() {
-    //     girlSideImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-    //     girl.drawGirlSide(girlSideImage);
-
-    //     girlBackImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-    //     girl.drawGirlBack(girlBackImage);
-    // }
-
-    private void buildCatFrames(){
+    private void buildCatFrames() {
         catFrame1 = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-        cat.drawCatFrame1(catFrame1); 
+        cat.drawCatFrame1(catFrame1);
 
         catFrame2 = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
         cat.drawCatFrame2(catFrame2);
@@ -78,14 +116,26 @@ public class Scene1 extends JPanel implements Runnable {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
-        // 1. วาดพื้นหลัง
-        g2.drawImage(bgImage, 0, 0, this);
-        
-        // 2. คำนวณจังหวะสลับเฟรม
-        int cycle = (int)(time / 0.35) % 2; 
-        
-        // 3. เลือกว่าจะวาดรูปแมวเฟรมไหนลงจอ
+
+        g2.drawImage(skyImage, 0, 0, this);
+        drawCloud(g2);
+        g2.drawImage(foregroundImage, 0, 0, this);
+        drawCat(g2);
+        drawFlashEffect(g2);
+
+    }
+
+    private void drawCloud(Graphics2D g2) {
+        int cloudWidth = 700;
+        int move = (int) ((time * CLOUD_SPEED * 5) % cloudWidth);
+
+        g2.drawImage(cloudImage, -move, 0, this); //ก้อนแรก
+        g2.drawImage(cloudImage, cloudWidth - move, 0, this); //ก้อน 2 
+
+    }
+
+    private void drawCat(Graphics2D g2) {
+        int cycle = (int) (time / TAIL_FLICK_SEC) % 2;
         if (cycle == 0) {
             g2.drawImage(catFrame1, 0, 0, this);
         } else {
@@ -93,40 +143,20 @@ public class Scene1 extends JPanel implements Runnable {
         }
     }
 
-    // private void drawStarImage(Graphics2D g2){
-    //     background.drawStar(g2, time);
-    // }
+    private void drawFlashEffect(Graphics2D g2) {
+        if (time >= FLASH_START_SEC) {
+            // คำนวณความสว่างสีขาว (0.0 ถึง 1.0)
+            float alpha = (float) ((time - FLASH_START_SEC) / (10.0 - FLASH_START_SEC));
+            alpha = Math.max(0.0f, Math.min(1.0f, alpha)); // จำกัดค่าให้อยู่ช่วง 0.0 - 1.0
 
-    // private void drawGirl(Graphics2D g2) {
-    //     int cycle = (int) (time / GIRL_SWITCH_SEC) % 2;
-    //     BufferedImage frame = (cycle == 0) ? girlSideImage : girlBackImage;
-    //     g2.drawImage(frame, 0, 0, this);
-    // }
-
-    // private void drawCat(Graphics2D g2) {
-    //     // วาดภาพ cached ของแมวที่ตำแหน่ง 0, 0
-    //     g2.drawImage(catImage, 0, 0, this); 
-    // }
-
-    // private void drawCat(Graphics2D g2) {
-    //     int cycle = (int)(time / TAIL_FLICK_SEC) % 2;
-    //     BufferedImage frame = (cycle == 0) ? catImage : catImage2;
-    //     g2.drawImage(frame, 0, 0, this);
-    // }
-
-    // private void drawBall(Graphics2D g2) {
-    //     double ballTime = (int)(time / BALL_CYCLE_SEC) % 2;
-
-    //     double y;
-    //     if (ballTime < 0.5) {
-    //         y = 520 - 6 * (ballTime / 0.5); // ขึ้น
-    //     } else {
-    //         y = 520 + 6* ((ballTime - 0.5) / 0.5); // ลง
-    //     }
-
-    //     g2.setColor(new Color(0xd8b3f2));
-    //     js.midpointEllipseFill(g2, 265, (int)y, 15, 15);
-    // }
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            g2.setColor(Color.WHITE);
+            g2.fillRect(0, 0, getWidth(), getHeight());
+            
+            // คืนค่า Composite เป็นปกติ
+            g2.setComposite(AlphaComposite.SrcOver);
+        }
+    }
 
     public static void main(String[] args) {
         Scene1 scene = new Scene1();
