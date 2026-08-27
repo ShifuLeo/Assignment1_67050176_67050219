@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Queue;
-
 import javax.swing.*;
 
 public class JavaSwing extends JPanel {
@@ -144,6 +143,22 @@ public class JavaSwing extends JPanel {
                 dy -= 2;
                 d = d - dy;
             }
+        }
+    }
+
+    public void fillQuad(Graphics g, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int width, int height) {
+        int steps = 150;
+        
+        for (int i = 0; i <= steps; i++) {
+            double t = (double) i / steps;
+            
+            int startX = (int) (x1 + (x4 - x1) * t);
+            int startY = (int) (y1 + (y4 - y1) * t);
+            
+            int endX = (int) (x2 + (x3 - x2) * t);
+            int endY = (int) (y2 + (y3 - y2) * t);
+            
+            bresenhamLine(g, startX, startY, endX, endY, width, height);
         }
     }
 

@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,6 +20,8 @@ public class Scene1 extends JPanel  {
     private BufferedImage skyImage = null;
     private BufferedImage cloudImage = null;
     private BufferedImage foregroundImage = null;
+    private BufferedImage tapeBaseImage = null;
+    private BufferedImage tapeTopImage = null;
     private BufferedImage catFrame1 = null;
     private BufferedImage catFrame2 = null;
 
@@ -31,9 +34,6 @@ public class Scene1 extends JPanel  {
 
         buildBackground();
         buildCatFrames();
-
-        // animationThread = new Thread(this);
-        // animationThread.start();
     }
 
     // @Override
@@ -101,6 +101,31 @@ public class Scene1 extends JPanel  {
         foregroundImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
         background.drawhill(foregroundImage);
         background.drawFlowers(foregroundImage);
+
+        // tape
+        // สร้างภาพฐานเทป (เลเยอร์ล่างสุด)
+        tapeBaseImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        background.drawTapeBase(tapeBaseImage);
+        
+        // สร้างภาพฝาเทป (เลเยอร์บนสุด)
+        tapeTopImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        background.drawTapeTop(tapeTopImage);
+    }
+
+    private void drawSpinningTape(Graphics2D g2) {
+        g2.setColor(Color.BLACK);
+        double angle = time * 0.5;
+        AffineTransform oldTransform = g2.getTransform();
+
+        // วงซ้าย
+        g2.rotate(angle, 429, 377);
+        js.bresenhamLine(g2, 429, 377, 429, 355, 3, 3);
+        g2.setTransform(oldTransform);
+
+        // วงขวา
+        g2.rotate(angle, 472, 368);
+        js.bresenhamLine(g2, 472, 368, 472, 388, 3, 3);
+        g2.setTransform(oldTransform);
     }
 
     private void buildCatFrames() {
@@ -109,7 +134,6 @@ public class Scene1 extends JPanel  {
 
         catFrame2 = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
         cat.drawCatFrame2(catFrame2);
-
     }
 
     @Override
@@ -120,6 +144,9 @@ public class Scene1 extends JPanel  {
         g2.drawImage(skyImage, 0, 0, this);
         drawCloud(g2);
         g2.drawImage(foregroundImage, 0, 0, this);
+        g2.drawImage(tapeBaseImage, 0, 0, this);
+        drawSpinningTape(g2);
+        g2.drawImage(tapeTopImage, 0, 0, this);
         drawCat(g2);
         drawFlashEffect(g2);
 

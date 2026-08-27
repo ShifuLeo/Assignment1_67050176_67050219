@@ -1,7 +1,7 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Background01 extends JPanel {
     JavaSwing javaSwing = new JavaSwing();
@@ -14,7 +14,9 @@ public class Background01 extends JPanel {
             drawSky(cachedBg);
             drawCloud(cachedBg);
             drawhill(cachedBg);
-            drawFlowers(cachedBg);
+            drawFlowers(cachedBg); 
+            drawTapeBase(cachedBg);
+            drawTapeTop(cachedBg);
         }
         g2.drawImage(cachedBg, 0, 0, this);
     }
@@ -33,6 +35,48 @@ public class Background01 extends JPanel {
         g2.setColor(new Color(0xa1b95f));
         javaSwing.bezierFillDown(g2, 0, 200, 270, 147, 529, 157, 600, 183, 2, 600);
 
+    }
+
+// 413, 215
+// 501, 200
+// 492, 142
+// 402, 159
+// y + 200
+
+    public void drawTapeBase(BufferedImage img) {
+        Graphics2D g2 = img.createGraphics();
+
+        g2.setColor(Color.WHITE);
+        javaSwing.fillQuad(g2, 409, 364, 487, 349, 492, 385, 418, 400, 2, 2);
+
+        g2.setColor(Color.BLACK);
+        javaSwing.midpointCircle(g2, 429, 377, 22, 2, 2);
+        Color target = new Color(img.getRGB(429, 377), true);
+        javaSwing.floodFill(img, 429, 377, target, new Color(0xC2DDF7));
+        
+        javaSwing.midpointCircle(g2, 472, 368, 22, 2, 2);
+        javaSwing.floodFill(img, 472, 368, target, new Color(0xC2DDF7));
+    }
+
+    public void drawTapeTop(BufferedImage img) {
+        Graphics2D g2 = img.createGraphics();
+        
+        g2.setColor(Color.PINK);
+        javaSwing.fillQuad(g2, 402, 359, 492, 342, 487, 349, 409, 364, 2, 2);
+        javaSwing.fillQuad(g2, 418, 400, 492, 385, 501, 400, 413, 415, 2, 2);
+        javaSwing.fillQuad(g2, 402, 359, 409, 364, 418, 400, 413, 415, 2, 2);
+        javaSwing.fillQuad(g2, 487, 349, 492, 342, 501, 400, 492, 385, 2, 2);
+
+        g2.setColor(Color.BLACK);
+        javaSwing.bresenhamLine(g2, 402, 359, 492, 342, 2, 2);
+        javaSwing.bresenhamLine(g2, 492, 342, 501, 400, 2, 2);
+        javaSwing.bresenhamLine(g2, 501, 400, 413, 415, 2, 2);
+        javaSwing.bresenhamLine(g2, 413, 415, 402, 359, 2, 2);
+        
+        javaSwing.bresenhamLine(g2, 409, 364, 487, 349, 2, 2);
+        javaSwing.bresenhamLine(g2, 487, 349, 492, 385, 2, 2);
+        javaSwing.bresenhamLine(g2, 492, 385, 418, 400, 2, 2);
+        javaSwing.bresenhamLine(g2, 418, 400, 409, 364, 2, 2);
     }
 
     public void drawCloud(BufferedImage img) {
@@ -110,5 +154,4 @@ public class Background01 extends JPanel {
         f.setResizable(false);
         f.setVisible(true);
     }
-
 }
