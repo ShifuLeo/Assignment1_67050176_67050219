@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Scene1 extends JPanel  {
+public class Scene1 extends JPanel {
 
     Background01 background = new Background01();
     Cat1 cat = new Cat1();
@@ -24,6 +24,8 @@ public class Scene1 extends JPanel  {
     private BufferedImage tapeTopImage = null;
     private BufferedImage catFrame1 = null;
     private BufferedImage catFrame2 = null;
+    private BufferedImage note1Image = null;
+    private BufferedImage note2Image = null;
 
     private static final double TAIL_FLICK_SEC = 0.35;
     private static final double CLOUD_SPEED = 10.0;
@@ -38,43 +40,43 @@ public class Scene1 extends JPanel  {
 
     // @Override
     // public void run() {
-    //     while (true) {
-    //         time += 0.033;
-    //         repaint();
+    // while (true) {
+    // time += 0.033;
+    // repaint();
 
-    //         try {
-    //             Thread.sleep(33);
-    //         } catch (InterruptedException e) {
-    //             e.printStackTrace();
-    //         }
-    //     }
+    // try {
+    // Thread.sleep(33);
+    // } catch (InterruptedException e) {
+    // e.printStackTrace();
+    // }
+    // }
     // }
 
     // @Override
     // public void run() {
-    //     double lastTime = System.currentTimeMillis();
-    //     double currentTime, elapsedTime;
+    // double lastTime = System.currentTimeMillis();
+    // double currentTime, elapsedTime;
 
-    //     while (true) {
-    //         currentTime = System.currentTimeMillis();
-    //         elapsedTime = currentTime - lastTime;
-    //         lastTime = currentTime;
-    //         time += elapsedTime / 1000.0;
+    // while (true) {
+    // currentTime = System.currentTimeMillis();
+    // elapsedTime = currentTime - lastTime;
+    // lastTime = currentTime;
+    // time += elapsedTime / 1000.0;
 
-    //         if (time >= 10.0) {
-    //             time = 10.0;
-    //             repaint();
-    //             break;
-    //         }
+    // if (time >= 10.0) {
+    // time = 10.0;
+    // repaint();
+    // break;
+    // }
 
-    //         repaint();
+    // repaint();
 
-    //         try {
-    //             Thread.sleep(16);
-    //         } catch (InterruptedException e) {
-    //             e.printStackTrace();
-    //         }
-    //     }
+    // try {
+    // Thread.sleep(16);
+    // } catch (InterruptedException e) {
+    // e.printStackTrace();
+    // }
+    // }
     // }
 
     public void update(double deltaTime) {
@@ -87,7 +89,7 @@ public class Scene1 extends JPanel  {
     public boolean isFinished() {
         return time >= 5;
     }
-    
+
     private void buildBackground() {
         // ท้องฟ้า
         skyImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
@@ -106,10 +108,13 @@ public class Scene1 extends JPanel  {
         // สร้างภาพฐานเทป (เลเยอร์ล่างสุด)
         tapeBaseImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
         background.drawTapeBase(tapeBaseImage);
-        
+
         // สร้างภาพฝาเทป (เลเยอร์บนสุด)
         tapeTopImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
         background.drawTapeTop(tapeTopImage);
+
+        note1Image = createNoteSprite(1);
+        note2Image = createNoteSprite(2);
     }
 
     private void drawSpinningTape(Graphics2D g2) {
@@ -150,14 +155,17 @@ public class Scene1 extends JPanel  {
         drawCat(g2);
         drawFlashEffect(g2);
 
+        drawNotes(g2);
+        drawCat(g2);
+
     }
 
     private void drawCloud(Graphics2D g2) {
         int cloudWidth = 700;
         int move = (int) ((time * CLOUD_SPEED * 5) % cloudWidth);
 
-        g2.drawImage(cloudImage, -move, 0, this); //ก้อนแรก
-        g2.drawImage(cloudImage, cloudWidth - move, 0, this); //ก้อน 2 
+        g2.drawImage(cloudImage, -move, 0, this); // ก้อนแรก
+        g2.drawImage(cloudImage, cloudWidth - move, 0, this); // ก้อน 2
 
     }
 
@@ -179,10 +187,43 @@ public class Scene1 extends JPanel  {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
             g2.setColor(Color.WHITE);
             g2.fillRect(0, 0, getWidth(), getHeight());
-            
+
             // คืนค่า Composite เป็นปกติ
             g2.setComposite(AlphaComposite.SrcOver);
         }
+    }
+
+    private BufferedImage createNoteSprite(int which) {
+        BufferedImage img = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = img.createGraphics();
+        g2.setColor(new Color(0xa1b95f));
+        g2.fillRect(0, 0, 600, 600);
+        g2.dispose();
+
+        if (which == 1)
+            background.drawNote01(img);
+        else
+            background.drawNote02(img);
+
+        int sentinelRGB = new Color(0xa1b95f).getRGB();
+        for (int y = 0; y < img.getHeight(); y++) {
+            for (int x = 0; x < img.getWidth(); x++) {
+                if (img.getRGB(x, y) == sentinelRGB) {
+                    img.setRGB(x, y, 0x00000000);
+                }
+            }
+        }
+        return img;
+    }
+
+    private void drawNotes(Graphics2D g2) {
+        double dy1 = Math.sin(time * 2.0) * 6;
+        double dx1 = Math.cos(time * 1.3) * 3;
+        double dy2 = Math.sin(time * 2.0 + Math.PI / 2) * 6;
+        double dx2 = Math.cos(time * 1.3 + Math.PI / 2) * 3;
+
+        g2.drawImage(note1Image, (int) Math.round(dx1), (int) Math.round(dy1), this);
+        g2.drawImage(note2Image, (int) Math.round(dx2), (int) Math.round(dy2), this);
     }
 
     public static void main(String[] args) {

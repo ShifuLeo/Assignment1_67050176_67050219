@@ -17,6 +17,8 @@ public class Background01 extends JPanel {
             drawFlowers(cachedBg); 
             drawTapeBase(cachedBg);
             drawTapeTop(cachedBg);
+            drawNote01(cachedBg);
+            drawNote02(cachedBg);
         }
         g2.drawImage(cachedBg, 0, 0, this);
     }
@@ -139,6 +141,36 @@ public class Background01 extends JPanel {
         // ตรงกลางของดอกไม้
         g2.setColor(new Color(0xe1d08a));
         javaSwing.midpointEllipseFill(g2, 368, 300, 6, 6);
+
+    }
+
+    public void drawNote01(BufferedImage img){
+        Graphics2D g2 = img.createGraphics();
+        g2.setColor(Color.pink);
+
+        javaSwing.bezierCurve(g2, 430, 282, 417, 300, 409, 268, 428, 279, 1, 1);
+        javaSwing.bezierCurve(g2, 440, 264, 436, 269, 431, 275, 428, 279, 1, 1);
+        javaSwing.bezierCurve(g2, 440, 264, 452, 268, 443, 266, 459, 271, 1, 1);
+        javaSwing.bezierCurve(g2, 448, 288, 459, 273, 458, 275, 459, 271, 1, 1);
+        javaSwing.bezierCurve(g2, 448, 288, 435, 309, 425, 274, 446, 285, 1, 1);
+        javaSwing.bezierCurve(g2, 450, 280, 450, 280, 447, 283, 446, 285, 1, 1);
+        javaSwing.bezierCurve(g2, 450, 280, 446, 277, 444, 277, 436, 273, 1, 1);
+        javaSwing.bezierCurve(g2, 430, 282, 434, 277, 432, 277, 436, 273, 1, 1);
+
+        javaSwing.floodFill(img, 425, 282, new Color(0xa1b95f), Color.pink);
+
+    }
+
+    public void drawNote02(BufferedImage img){
+        Graphics2D g2 = img.createGraphics();
+        g2.setColor(new Color(0xC2DDF7));
+
+        javaSwing.bezierCurve(g2, 468, 305, 450, 300, 456, 327, 471, 312, 1, 1);
+        javaSwing.bezierCurve(g2, 468, 305, 467, 284, 466, 285, 469, 283, 1, 1);
+        javaSwing.bezierCurve(g2, 471, 312, 471, 301, 473, 280, 469, 283, 1, 1);
+
+        javaSwing.floodFill(img, 469, 306, new Color(0xa1b95f),new Color(0xC2DDF7));
+
 
     }
 
