@@ -7,16 +7,16 @@ import javax.swing.JPanel;
 
 public class Cat0 extends JPanel{
     JavaSwing javaSwing = new JavaSwing();
-    private BufferedImage cachedCat00 = null;
+    private BufferedImage cachedCat = null;
 
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        if (cachedCat00 == null) {
-            cachedCat00 = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-            drawCat(cachedCat00);
-            // drawCat00Back(cachedCat00);
+        if (cachedCat == null) {
+            cachedCat = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+            drawCat(cachedCat);
+            // drawCat00Back(cachedCat);
         }
-        g2.drawImage(cachedCat00, 0, 0, this);
+        g2.drawImage(cachedCat, 0, 0, this);
     }
 
     public void drawCat(BufferedImage img){

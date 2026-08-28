@@ -31,7 +31,6 @@ public class Main implements Runnable {
         frame.setResizable(false);
         frame.setVisible(true);
 
-        // เริ่มต้น Thread เดียวจาก main controller
         new Thread(this).start();
     }
 
@@ -41,7 +40,7 @@ public class Main implements Runnable {
 
         while (isRunning) {
             double currentTime = System.currentTimeMillis();
-            double elapsedTime = (currentTime - lastTime) / 1000.0; // แปลงเป็นวินาที
+            double elapsedTime = (currentTime - lastTime) / 1000.0;
             lastTime = currentTime;
 
             if (currentScene == 1) {
@@ -57,14 +56,13 @@ public class Main implements Runnable {
                 scene2.update(elapsedTime);
                 scene2.repaint();
 
-                // เมื่อ Scene 2 เล่นจบ สามารถหยุด Loop ได้
                 if (scene2.isFinished()) {
                     isRunning = false;
                 }
             }
 
             try {
-                Thread.sleep(16); // ประมาณ 60 FPS
+                Thread.sleep(16);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

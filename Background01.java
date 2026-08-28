@@ -173,7 +173,7 @@ public class Background01 extends JPanel {
 
 
     }
-
+    
     public static void main(String[] args) {
         Background01 m = new Background01();
         m.setPreferredSize(new Dimension(600, 600));

@@ -15,7 +15,6 @@ public class Scene1 extends JPanel {
     JavaSwing js = new JavaSwing();
 
     double time = 0;
-    // Thread animationThread;
 
     private BufferedImage skyImage = null;
     private BufferedImage cloudImage = null;
@@ -36,21 +35,9 @@ public class Scene1 extends JPanel {
 
         buildBackground();
         buildCatFrames();
+        // animationThread = new Thread(this);
+        // animationThread.start();
     }
-
-    // @Override
-    // public void run() {
-    // while (true) {
-    // time += 0.033;
-    // repaint();
-
-    // try {
-    // Thread.sleep(33);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
 
     // @Override
     // public void run() {
@@ -105,11 +92,11 @@ public class Scene1 extends JPanel {
         background.drawFlowers(foregroundImage);
 
         // tape
-        // สร้างภาพฐานเทป (เลเยอร์ล่างสุด)
+        // ฐานเทป
         tapeBaseImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
         background.drawTapeBase(tapeBaseImage);
 
-        // สร้างภาพฝาเทป (เลเยอร์บนสุด)
+        // ฝาเทป
         tapeTopImage = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
         background.drawTapeTop(tapeTopImage);
 

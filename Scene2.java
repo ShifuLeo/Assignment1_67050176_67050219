@@ -18,17 +18,15 @@ public class Scene2 extends JPanel {
     Thread animationThread;
 
     private BufferedImage bgImage;
-
     private BufferedImage girlSideImage;
     private BufferedImage girlBackImage;
-
     private BufferedImage catImage1;
     private BufferedImage catImage2;
 
     private static final double GIRL_SWITCH_SEC = 2.45;
     private static final double TAIL_FLICK_SEC = 0.35;
     private static final double BALL_CYCLE_SEC = TAIL_FLICK_SEC;
-    private static final double BALL_START_ROLL_SEC = 4.0;
+    private static final double BALL_START_ROLL_SEC = 4.5;
     private static final double BALL_ROLL_SPEED = 180.0;
     private static final double CAT_FADE_DURATION = 2.0;
     private static final double WHITE_HOLD_SEC = 1;
@@ -185,21 +183,21 @@ public class Scene2 extends JPanel {
 
     private void drawFadeInEffect(Graphics2D g2) {
         if (time < FADE_FINISH_SEC) {
-        float alpha = 1.0f;
+            float alpha = 1.0f;
 
-        if (time >= WHITE_HOLD_SEC) {
-            alpha = (float) (1.0 - ((time - WHITE_HOLD_SEC) / (FADE_FINISH_SEC - WHITE_HOLD_SEC)));
+            if (time >= WHITE_HOLD_SEC) {
+                alpha = (float) (1.0 - ((time - WHITE_HOLD_SEC) / (FADE_FINISH_SEC - WHITE_HOLD_SEC)));
+            }
+
+            alpha = Math.max(0.0f, Math.min(1.0f, alpha));
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            g2.setColor(Color.WHITE);
+            g2.fillRect(0, 0, getWidth(), getHeight());
+
+            // คืนค่า Composite ปกติ
+            g2.setComposite(AlphaComposite.SrcOver);
         }
-
-        alpha = Math.max(0.0f, Math.min(1.0f, alpha));
-
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-        g2.setColor(Color.WHITE);
-        g2.fillRect(0, 0, getWidth(), getHeight());
-        
-        // คืนค่า Composite ปกติ
-        g2.setComposite(AlphaComposite.SrcOver);
-    }
     }
 
     public static void main(String[] args) {
