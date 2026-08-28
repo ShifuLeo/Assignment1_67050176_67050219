@@ -12,4 +12,5 @@ CG Assignment1
 ## ภาพที่ใช้เป็นต้นแบบในการทำ
 เป็นการออกแบบใน Canva โดยใช้ element ที่มีใน Canva ทั้งสิ้น
 Canva : https://canva.link/vxtqpgj9k8dmtd0
+Pinterest : https://pin.it/2yw56D2Ps
 จากนั้นนำภาพที่ได้จาก Canva ไปพล็อตจุดใน Desmos ตามสมการของเส้นที่ต้องการใช้ในการวาดเพื่อหาพิกัด (x, y) มาใช้กับอัลกอริทึมการวาด
