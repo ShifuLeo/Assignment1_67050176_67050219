@@ -1,7 +1,7 @@
 # My Memory Animation
 
-แอนิเมชัน 2 มิติจากรายวิชา Computer Graphic ที่เขียนขึ้นด้วย Java AWT/Swing พื้นฐาน[cite: 4]
-ทำงานด้วยการพล็อตแกน x, y ทีละพิกเซลโดยไม่ใช้ไลบรารีสำเร็จรูป[cite: 4]
+แอนิเมชัน 2 มิติจากรายวิชา Computer Graphic ที่เขียนขึ้นด้วย Java AWT/Swing พื้นฐาน
+ทำงานด้วยการพล็อตแกน x, y ทีละพิกเซลโดยไม่ใช้ไลบรารีสำเร็จรูป
 
 > รูปภาพแรงบันดาลใจทั้งหมดดูได้ที่โฟลเดอร์ `inspire_image/` และวิดีโอผลลัพธ์การรันอยู่ที่ `Video/`
 
@@ -9,7 +9,7 @@
 
 | ส่วน | เทคโนโลยี |
 |---|---|
-| ภาษากราฟิกหลัก | Java Graphic 2D, GraphicsSwing[cite: 4] |
+| ภาษากราฟิกหลัก | Java Graphic 2D, GraphicsSwing |
 | อัลกอริทึมวาดภาพ | Bresenham Line, Bezier Curve, Midpoint Circle/Ellipse, Flood Fill[cite: 1, 2] |
 | ระบบเสียง | `javax.sound.sampled` |
 | การแสดงผล | `JFrame`, `JPanel`, `BufferedImage` (Double Buffering) |
