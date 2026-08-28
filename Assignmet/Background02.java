@@ -139,18 +139,21 @@ public class Background02 extends JPanel {
 
     // ใส่รูปแมว
     public void drawPictureFrame(Graphics2D g2) {
+        
         g2.setColor(new Color(0x8ca36e));
-        g2.fillRect(55, 100, 120, 140);
+        javaSwing.fillQuad(g2, 55, 100, 175, 100, 175, 240, 55, 240, 1, 1);
+
         g2.setColor(new Color(0x79653a));
-        g2.fillRect(205, 45, 110, 110); 
+        javaSwing.fillQuad(g2, 205, 45, 315, 45, 315, 155, 205, 155, 1, 1);
+
         g2.setColor(new Color(0xab8fbe));
-        g2.fillRect(205, 165, 110, 110);
+        javaSwing.fillQuad(g2, 205, 165, 315, 165, 315, 275, 205, 275, 1, 1);
 
         g2.setColor(Color.WHITE);
-        g2.fillRect(60, 105, 110, 130);
-        g2.fillRect(210, 50, 100, 100);
-        g2.fillRect(210, 170, 100, 100);
-        
+        javaSwing.fillQuad(g2, 60, 105, 170, 105, 170, 235, 60, 235, 1, 1);
+        javaSwing.fillQuad(g2, 210, 50, 310, 50, 310, 150, 210, 150, 1, 1);
+        javaSwing.fillQuad(g2, 210, 170, 310, 170, 310, 270, 210, 270, 1, 1);
+
         // รูปแมว
         drawPhotoInFrame(g2, "catPic01.png", 219, 59, 82, 82);
         drawPhotoInFrame(g2, "catPic03.png", 219, 179, 82, 82);
