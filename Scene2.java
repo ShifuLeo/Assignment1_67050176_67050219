@@ -29,8 +29,10 @@ public class Scene2 extends JPanel {
     private static final double BALL_START_ROLL_SEC = 4.5;
     private static final double BALL_ROLL_SPEED = 180.0;
     private static final double CAT_FADE_DURATION = 2.0;
-    private static final double WHITE_HOLD_SEC = 1;
-    private static final double FADE_FINISH_SEC = 2;
+    private static final double WHITE_HOLD_SEC = 2.0;
+    private static final double FADE_FINISH_SEC = 5.0;
+    private static final double FADE_OUT_START_SEC = 16.0;
+    private static final double FADE_OUT_END_SEC = 19.0;
 
     public Scene2() {
         setPreferredSize(new Dimension(600, 600));
@@ -38,48 +40,17 @@ public class Scene2 extends JPanel {
         buildBackground();
         buildGirlFrames();
         buildCatFrames();
-
-        // animationThread = new Thread(this);
-        // animationThread.start();
     }
-
-    // @Override
-    // public void run() {
-    // double lastTime = System.currentTimeMillis();
-    // double currentTime, elapsedTime;
-
-    // while (true) {
-    // currentTime = System.currentTimeMillis();
-    // elapsedTime = currentTime - lastTime;
-    // lastTime = currentTime;
-
-    // time += elapsedTime / 1000.0;
-
-    // if (time >= 10.0) {
-    // time = 10.0;
-    // repaint();
-    // break;
-    // }
-
-    // repaint();
-
-    // try {
-    // Thread.sleep(16);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
 
     public void update(double deltaTime) {
         time += deltaTime;
-        if (time >= 10.0) {
-            time = 10.0;
-        }
+        // if (time >= 10.0) {
+        //     time = 10.0;
+        // }
     }
 
     public boolean isFinished() {
-        return time >= 10.0;
+        return time >= 53.0;
     }
 
     private void buildBackground() {
@@ -119,6 +90,7 @@ public class Scene2 extends JPanel {
         drawCat(g2);
         drawBall(g2);
         drawFadeInEffect(g2);
+        drawFadeOutEffect(g2);
     }
 
     private void drawStarImage(Graphics2D g2) {
@@ -126,7 +98,9 @@ public class Scene2 extends JPanel {
     }
 
     private void drawGirl(Graphics2D g2) {
-        int cycle = (int) (time / GIRL_SWITCH_SEC) % 2;
+        double girlTime = Math.min(time, 10.0);
+
+        int cycle = (int) (girlTime / GIRL_SWITCH_SEC) % 2;
         BufferedImage frame = (cycle == 0) ? girlSideImage : girlBackImage;
         g2.drawImage(frame, 0, 0, this);
     }
@@ -196,6 +170,20 @@ public class Scene2 extends JPanel {
             g2.fillRect(0, 0, getWidth(), getHeight());
 
             // คืนค่า Composite ปกติ
+            g2.setComposite(AlphaComposite.SrcOver);
+        }
+    }
+
+    private void drawFadeOutEffect(Graphics2D g2) {
+        if (time >= FADE_OUT_START_SEC) {
+            // คำนวณให้ค่า alpha ค่อยๆ เพิ่มจาก 0.0 เป็น 1.0 ในช่วงวินาทีที่ 8 ถึง 10
+            float alpha = (float) ((time - FADE_OUT_START_SEC) / (FADE_OUT_END_SEC - FADE_OUT_START_SEC));
+            alpha = Math.max(0.0f, Math.min(1.0f, alpha));
+
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
+            g2.setColor(Color.BLACK); // ใช้สีดำแทนสีขาว
+            g2.fillRect(0, 0, getWidth(), getHeight());
+
             g2.setComposite(AlphaComposite.SrcOver);
         }
     }

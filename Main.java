@@ -1,4 +1,10 @@
 import java.awt.CardLayout;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
+import javax.sound.sampled.LineListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -31,6 +37,8 @@ public class Main implements Runnable {
         frame.setResizable(false);
         frame.setVisible(true);
 
+        playMusic("Lalaland1.wav");
+
         new Thread(this).start();
     }
 
@@ -55,10 +63,6 @@ public class Main implements Runnable {
             } else if (currentScene == 2) {
                 scene2.update(elapsedTime);
                 scene2.repaint();
-
-                if (scene2.isFinished()) {
-                    isRunning = false;
-                }
             }
 
             try {
@@ -66,6 +70,32 @@ public class Main implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void playMusic(String musicLocation) {
+        try {
+            File musicPath = new File(musicLocation);
+            
+            if (musicPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.addLineListener(new LineListener() {
+                    @Override
+                    public void update(LineEvent event) {
+                        // จบเพลง ปิดโปรแกรม 
+                        if (event.getType() == LineEvent.Type.STOP) {
+                            System.exit(0); 
+                        }
+                    }
+                });
+                clip.start();
+            } else {
+                System.out.println("Can't find audio file");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

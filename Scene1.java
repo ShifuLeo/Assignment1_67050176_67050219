@@ -26,55 +26,26 @@ public class Scene1 extends JPanel {
     private BufferedImage note1Image = null;
     private BufferedImage note2Image = null;
 
-    private static final double TAIL_FLICK_SEC = 0.35;
+    private static final double TAIL_FLICK_SEC = 0.9;
     private static final double CLOUD_SPEED = 10.0;
-    private static final double FLASH_START_SEC = 4;
+    private static final double FLASH_START_SEC = 32;
 
     public Scene1() {
         setPreferredSize(new Dimension(600, 600));
 
         buildBackground();
         buildCatFrames();
-        // animationThread = new Thread(this);
-        // animationThread.start();
     }
-
-    // @Override
-    // public void run() {
-    // double lastTime = System.currentTimeMillis();
-    // double currentTime, elapsedTime;
-
-    // while (true) {
-    // currentTime = System.currentTimeMillis();
-    // elapsedTime = currentTime - lastTime;
-    // lastTime = currentTime;
-    // time += elapsedTime / 1000.0;
-
-    // if (time >= 10.0) {
-    // time = 10.0;
-    // repaint();
-    // break;
-    // }
-
-    // repaint();
-
-    // try {
-    // Thread.sleep(16);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
 
     public void update(double deltaTime) {
         time += deltaTime;
-        if (time > 5) {
-            time = 5;
+        if (time > 34) {
+            time = 34;
         }
     }
 
     public boolean isFinished() {
-        return time >= 5;
+        return time >= 34;
     }
 
     private void buildBackground() {
@@ -139,12 +110,11 @@ public class Scene1 extends JPanel {
         g2.drawImage(tapeBaseImage, 0, 0, this);
         drawSpinningTape(g2);
         g2.drawImage(tapeTopImage, 0, 0, this);
-        drawCat(g2);
-        drawFlashEffect(g2);
-
+        
         drawNotes(g2);
         drawCat(g2);
-
+        
+        drawFlashEffect(g2);
     }
 
     private void drawCloud(Graphics2D g2) {
@@ -168,7 +138,8 @@ public class Scene1 extends JPanel {
     private void drawFlashEffect(Graphics2D g2) {
         if (time >= FLASH_START_SEC) {
             // คำนวณความสว่างสีขาว (0.0 ถึง 1.0)
-            float alpha = (float) ((time - FLASH_START_SEC) / (10.0 - FLASH_START_SEC));
+            // float alpha = (float) ((time - FLASH_START_SEC) / (10.0 - FLASH_START_SEC));
+            float alpha = (float) ((time - FLASH_START_SEC) / (34.0 - FLASH_START_SEC));
             alpha = Math.max(0.0f, Math.min(1.0f, alpha)); // จำกัดค่าให้อยู่ช่วง 0.0 - 1.0
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
