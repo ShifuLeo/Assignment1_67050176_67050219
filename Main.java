@@ -1,5 +1,4 @@
 import java.awt.CardLayout;
-import java.io.File;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -37,7 +36,7 @@ public class Main implements Runnable {
         frame.setResizable(false);
         frame.setVisible(true);
 
-        playMusic("Lalaland1.wav");
+        playMusic("sound.wav");
 
         new Thread(this).start();
     }
@@ -73,26 +72,27 @@ public class Main implements Runnable {
         }
     }
 
-    public void playMusic(String musicLocation) {
+    public void playMusic(String musicFileName) {
         try {
-            File musicPath = new File(musicLocation);
+            java.net.URL musicUrl = getClass().getResource("/" + musicFileName);
             
-            if (musicPath.exists()) {
-                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+            if (musicUrl != null) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicUrl);
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInput);
+                
                 clip.addLineListener(new LineListener() {
                     @Override
                     public void update(LineEvent event) {
-                        // จบเพลง ปิดโปรแกรม 
                         if (event.getType() == LineEvent.Type.STOP) {
                             System.exit(0); 
                         }
                     }
                 });
+                
                 clip.start();
             } else {
-                System.out.println("Can't find audio file");
+                System.out.println("Can't find audio file: " + musicFileName);
             }
         } catch (Exception ex) {
             ex.printStackTrace();

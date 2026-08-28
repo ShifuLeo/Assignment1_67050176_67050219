@@ -15,7 +15,6 @@ public class Scene2 extends JPanel {
     JavaSwing js = new JavaSwing();
 
     double time = 0;
-    Thread animationThread;
 
     private BufferedImage bgImage;
     private BufferedImage girlSideImage;
@@ -29,10 +28,10 @@ public class Scene2 extends JPanel {
     private static final double BALL_START_ROLL_SEC = 4.5;
     private static final double BALL_ROLL_SPEED = 180.0;
     private static final double CAT_FADE_DURATION = 2.0;
-    private static final double WHITE_HOLD_SEC = 2.0;
+    private static final double WHITE_HOLD_SEC = 1.0;
     private static final double FADE_FINISH_SEC = 5.0;
-    private static final double FADE_OUT_START_SEC = 16.0;
-    private static final double FADE_OUT_END_SEC = 19.0;
+    private static final double FADE_OUT_START_SEC = 9.0;
+    private static final double FADE_OUT_END_SEC = 12.0;
 
     public Scene2() {
         setPreferredSize(new Dimension(600, 600));
@@ -44,13 +43,10 @@ public class Scene2 extends JPanel {
 
     public void update(double deltaTime) {
         time += deltaTime;
-        // if (time >= 10.0) {
-        //     time = 10.0;
-        // }
     }
 
     public boolean isFinished() {
-        return time >= 53.0;
+        return time >= 12.0;
     }
 
     private void buildBackground() {
@@ -176,7 +172,7 @@ public class Scene2 extends JPanel {
 
     private void drawFadeOutEffect(Graphics2D g2) {
         if (time >= FADE_OUT_START_SEC) {
-            // คำนวณให้ค่า alpha ค่อยๆ เพิ่มจาก 0.0 เป็น 1.0 ในช่วงวินาทีที่ 8 ถึง 10
+            // คำนวณให้ค่า alpha
             float alpha = (float) ((time - FADE_OUT_START_SEC) / (FADE_OUT_END_SEC - FADE_OUT_START_SEC));
             alpha = Math.max(0.0f, Math.min(1.0f, alpha));
 

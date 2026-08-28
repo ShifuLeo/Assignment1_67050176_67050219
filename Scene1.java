@@ -21,14 +21,19 @@ public class Scene1 extends JPanel {
     private BufferedImage foregroundImage = null;
     private BufferedImage tapeBaseImage = null;
     private BufferedImage tapeTopImage = null;
-    private BufferedImage catFrame1 = null;
-    private BufferedImage catFrame2 = null;
+    private BufferedImage catFrame1Open = null;
+    private BufferedImage catFrame1Blink = null;
+    private BufferedImage catFrame2Open = null;
+    private BufferedImage catFrame2Blink = null;
     private BufferedImage note1Image = null;
     private BufferedImage note2Image = null;
 
-    private static final double TAIL_FLICK_SEC = 0.9;
     private static final double CLOUD_SPEED = 10.0;
-    private static final double FLASH_START_SEC = 32;
+    private static final double SCENE_DURATION_SEC = 5.0;
+    private static final double BLINK_CYCLE_SEC = 1.5;
+    private static final double BLINK_DURATION_SEC = 0.2;
+    private static final double TAIL_FLICK_SEC = 0.9;
+    private static final double FLASH_START_SEC = 4;
 
     public Scene1() {
         setPreferredSize(new Dimension(600, 600));
@@ -39,13 +44,13 @@ public class Scene1 extends JPanel {
 
     public void update(double deltaTime) {
         time += deltaTime;
-        if (time > 34) {
-            time = 34;
+        if (time > SCENE_DURATION_SEC) {
+            time = SCENE_DURATION_SEC;
         }
     }
 
     public boolean isFinished() {
-        return time >= 34;
+        return time >= SCENE_DURATION_SEC;
     }
 
     private void buildBackground() {
@@ -92,11 +97,17 @@ public class Scene1 extends JPanel {
     }
 
     private void buildCatFrames() {
-        catFrame1 = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-        cat.drawCatFrame1(catFrame1);
+        catFrame1Open = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        cat.drawCatFrame1(catFrame1Open, false);
+        
+        catFrame1Blink = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        cat.drawCatFrame1(catFrame1Blink, true);
 
-        catFrame2 = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-        cat.drawCatFrame2(catFrame2);
+        catFrame2Open = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        cat.drawCatFrame2(catFrame2Open, false);
+        
+        catFrame2Blink = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
+        cat.drawCatFrame2(catFrame2Blink, true);
     }
 
     @Override
@@ -127,19 +138,22 @@ public class Scene1 extends JPanel {
     }
 
     private void drawCat(Graphics2D g2) {
-        int cycle = (int) (time / TAIL_FLICK_SEC) % 2;
-        if (cycle == 0) {
-            g2.drawImage(catFrame1, 0, 0, this);
+        int tailCycle = (int) (time / TAIL_FLICK_SEC) % 2;
+        boolean isBlink = (time % BLINK_CYCLE_SEC) < BLINK_DURATION_SEC;
+        BufferedImage frame;
+        
+        if (tailCycle == 0) {
+            frame = isBlink ? catFrame1Blink : catFrame1Open;
         } else {
-            g2.drawImage(catFrame2, 0, 0, this);
+            frame = isBlink ? catFrame2Blink : catFrame2Open;
         }
+        
+        g2.drawImage(frame, 0, 0, this);
     }
 
     private void drawFlashEffect(Graphics2D g2) {
         if (time >= FLASH_START_SEC) {
-            // คำนวณความสว่างสีขาว (0.0 ถึง 1.0)
-            // float alpha = (float) ((time - FLASH_START_SEC) / (10.0 - FLASH_START_SEC));
-            float alpha = (float) ((time - FLASH_START_SEC) / (34.0 - FLASH_START_SEC));
+            float alpha = (float) ((time - FLASH_START_SEC) / (SCENE_DURATION_SEC - FLASH_START_SEC));
             alpha = Math.max(0.0f, Math.min(1.0f, alpha)); // จำกัดค่าให้อยู่ช่วง 0.0 - 1.0
 
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));

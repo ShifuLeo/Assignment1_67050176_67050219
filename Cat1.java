@@ -5,21 +5,21 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Cat1 extends JPanel{
+public class Cat1 extends JPanel {
     JavaSwing javaSwing = new JavaSwing();
-    private BufferedImage cachedCat = null;
 
+    private BufferedImage cachedCat = null;
+    
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         if (cachedCat == null) {
             cachedCat = new BufferedImage(600, 600, BufferedImage.TYPE_INT_ARGB);
-            drawBaseCat(cachedCat);
-            // drawCatBack(cachedCat);
+            drawBaseCat(cachedCat, true);
         }
         g2.drawImage(cachedCat, 0, 0, this);
     }
 
-    public void drawBaseCat(BufferedImage img){
+    public void drawBaseCat(BufferedImage img, boolean isBlink) {
         Graphics2D g2 = img.createGraphics();
         g2.setColor(Color.BLACK);
 
@@ -40,7 +40,6 @@ public class Cat1 extends JPanel{
         javaSwing.bezierCurve(g2, 284, 243, 283, 247, 292, 232, 315, 251, 2, 2);
         javaSwing.bezierCurve(g2, 323, 270, 327, 288, 311, 297, 320, 326, 2, 2);
 
-
         // R, L foot
         javaSwing.bezierCurve(g2, 289, 476, 298, 496, 330, 480, 292, 458, 2, 2);
         javaSwing.bezierCurve(g2, 289, 476, 240, 465, 267, 454, 258, 449, 2, 2);
@@ -52,9 +51,6 @@ public class Cat1 extends JPanel{
         // butt
         javaSwing.bezierCurve(g2, 218, 436, 224, 444, 255, 438, 258, 449, 2, 2);
 
-        // tail
-        
-
         // L, R hand
         g2.setColor(Color.WHITE);
         javaSwing.bezierCurve(g2, 240, 326, 237, 345, 237, 340, 229, 355, 2, 2);
@@ -63,37 +59,39 @@ public class Cat1 extends JPanel{
 
         javaSwing.bezierCurve(g2, 291, 326, 283, 356, 282, 344, 265, 372, 2, 2);
         javaSwing.bezierCurve(g2, 298, 351, 277, 387, 254, 391, 265, 372, 2, 2);
-
-
-        // L, R eye
-        g2.setColor(Color.BLACK);
-        javaSwing.midpointCircle(g2, 280, 265, 8, 2, 2);
-        g2.setColor(Color.WHITE);
-        javaSwing.midpointCircle(g2, 280, 265, 5, 3, 3);
-        g2.setColor(Color.BLACK);
-        javaSwing.midpointCircle(g2, 280, 265, 4, 2, 2);
-        javaSwing.floodFill(img, 281, 266, new Color(0,0,0,0), Color.BLACK);
-
-        // g2.setColor(Color.BLACK);
-        javaSwing.midpointCircle(g2, 305, 270, 8, 2, 2);
-        g2.setColor(Color.WHITE);
-        javaSwing.midpointCircle(g2, 305, 270, 5, 3, 3);
-        g2.setColor(Color.BLACK);
-        javaSwing.midpointCircle(g2, 305, 270, 4, 2, 2);
-        javaSwing.floodFill(img, 306, 271, new Color(0,0,0,0), Color.BLACK);
         
-    
-        // javaSwing.floodFill(img, 280, 400, new Color(0,0,0,0), Color.BLACK);        
+        if (isBlink) {
+            // หลับตา
+            g2.setColor(Color.BLACK);
+            javaSwing.midpointEllipseFill(g2, 280, 265, 8, 8);
+            javaSwing.midpointEllipseFill(g2, 305, 270, 8, 8);
+        } else {
+            // ลืมตา
+            g2.setColor(Color.BLACK);
+            javaSwing.midpointCircle(g2, 280, 265, 8, 2, 2);
+            g2.setColor(Color.WHITE);
+            javaSwing.midpointCircle(g2, 280, 265, 5, 3, 3);
+            g2.setColor(Color.BLACK);
+            javaSwing.midpointCircle(g2, 280, 265, 4, 2, 2);
+            javaSwing.floodFill(img, 281, 266, new Color(0,0,0,0), Color.BLACK);
+
+            javaSwing.midpointCircle(g2, 305, 270, 8, 2, 2);
+            g2.setColor(Color.WHITE);
+            javaSwing.midpointCircle(g2, 305, 270, 5, 3, 3);
+            g2.setColor(Color.BLACK);
+            javaSwing.midpointCircle(g2, 305, 270, 4, 2, 2);
+            javaSwing.floodFill(img, 306, 271, new Color(0,0,0,0), Color.BLACK);
+        }
     }
 
-    public void drawCatFrame1(BufferedImage img) {
-        drawBaseCat(img);
+    public void drawCatFrame1(BufferedImage img, boolean isBlink) {
+        drawBaseCat(img, isBlink);
         drawCatTail0(img);
         javaSwing.floodFill(img, 280, 400, new Color(0,0,0,0), Color.BLACK);
     }
 
-    public void drawCatFrame2(BufferedImage img) {
-        drawBaseCat(img);
+    public void drawCatFrame2(BufferedImage img, boolean isBlink) {
+        drawBaseCat(img, isBlink);
         drawCatTail1(img);
         javaSwing.floodFill(img, 280, 400, new Color(0,0,0,0), Color.BLACK);
     }
@@ -107,12 +105,10 @@ public class Cat1 extends JPanel{
         javaSwing.bezierCurve(g2, 225, 500, 180, 477, 174, 465, 202, 427, 2, 2);
     }
 
-
     public void drawCatTail1(BufferedImage img) {
         Graphics2D g2 = img.createGraphics();
         g2.setColor(Color.BLACK);
         //cat tail
-
         javaSwing.bezierCurve(g2, 218, 436, 148, 450, 214, 498, 170, 535, 2, 2);
         javaSwing.bezierCurve(g2, 150, 518, 106, 552, 165, 548, 170, 535, 2, 2);
         javaSwing.bezierCurve(g2, 150, 518, 200, 520, 129, 439, 202, 427, 2, 2);
